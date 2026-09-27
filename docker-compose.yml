@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # 1. PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: fixit-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: fixit_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgrespassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - fixit-network
+
+  # 2. FastAPI AI Service
+  ai-service:
+    build:
+      context: ./ai-service
+      dockerfile: Dockerfile
+    container_name: fixit-ai-service
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    networks:
+      - fixit-network
+
+  # 3. Spring Boot Backend Core
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: fixit-backend
+    restart: unless-stopped
+    depends_on:
+      - postgres
+      - ai-service
+    environment:
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_NAME: fixit_db
+      DB_USER: postgres
+      DB_PASSWORD: postgrespassword
+      AI_SERVICE_URL: http://ai-service:8000/api/v1
+    ports:
+      - "8080:8080"
+    networks:
+      - fixit-network
+
+  # 4. React Vite Frontend (Nginx)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: fixit-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+      - "5173:80"
+    networks:
+      - fixit-network
+
+volumes:
+  postgres_data:
+
+networks:
+  fixit-network:
+    driver: bridge

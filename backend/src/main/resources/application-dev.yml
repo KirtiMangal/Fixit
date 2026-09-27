@@ -1,0 +1,23 @@
+# Development Profile Configuration
+spring:
+  # When PostgreSQL is ready in Phase 2, remove the autoconfigure exclude from application.yml
+  # and this datasource configuration will connect seamlessly.
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:fixit_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+logging:
+  level:
+    root: INFO
+    com.fixit: DEBUG
+    org.springframework.security: INFO

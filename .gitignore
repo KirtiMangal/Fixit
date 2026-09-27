@@ -1,0 +1,42 @@
+# Environment variables and secrets
+.env
+.env.local
+*.env
+
+# Operating System & IDEs
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# Java / Spring Boot / Maven
+backend/target/
+backend/.mvn/
+backend/*.log
+backend/bin/
+backend/.project
+backend/.settings/
+backend/data/
+*.mv.db
+
+# Node / React / Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/.pnp/
+frontend/.pnp.js
+
+# Python / FastAPI
+ai-service/__pycache__/
+ai-service/**/__pycache__/
+ai-service/*.pyc
+ai-service/**/.pytest_cache/
+ai-service/.venv/
+ai-service/venv/
+ai-service/env/
+ai-service/*.egg-info/
+ai-service/.coverage
+ai-service/htmlcov/
