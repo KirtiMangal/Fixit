@@ -16,12 +16,11 @@ public class CorsConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Allow Vercel frontend
-        configuration.setAllowedOriginPatterns(Arrays.asList(
-                "https://*.vercel.app"
+        // EXACT Vercel frontend URL
+        configuration.setAllowedOrigins(Arrays.asList(
+                "https://fixit-n4h1490b-kirtis-projects-0e19716b.vercel.app"
         ));
 
-        // Allowed HTTP methods
         configuration.setAllowedMethods(Arrays.asList(
                 "GET",
                 "POST",
@@ -31,12 +30,13 @@ public class CorsConfig {
                 "OPTIONS"
         ));
 
-        // Allow request headers
         configuration.setAllowedHeaders(Arrays.asList(
-                "*"
+                "Authorization",
+                "Content-Type",
+                "Accept",
+                "Origin"
         ));
 
-        // Required if frontend sends credentials
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
