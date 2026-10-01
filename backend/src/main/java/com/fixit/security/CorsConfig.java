@@ -16,33 +16,27 @@ public class CorsConfig {
 
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // EXACT Vercel frontend URL
-        configuration.setAllowedOrigins(Arrays.asList(
-                "https://fixit-n4h1490b-kirtis-projects-0e19716b.vercel.app"
-        ));
+        configuration.setAllowedOriginPatterns(
+                Arrays.asList("*")
+        );
 
-        configuration.setAllowedMethods(Arrays.asList(
-                "GET",
-                "POST",
-                "PUT",
-                "DELETE",
-                "PATCH",
-                "OPTIONS"
-        ));
+        configuration.setAllowedMethods(
+                Arrays.asList("*")
+        );
 
-        configuration.setAllowedHeaders(Arrays.asList(
-                "Authorization",
-                "Content-Type",
-                "Accept",
-                "Origin"
-        ));
+        configuration.setAllowedHeaders(
+                Arrays.asList("*")
+        );
 
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source =
                 new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration(
+                "/**",
+                configuration
+        );
 
         return source;
     }
